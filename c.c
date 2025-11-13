@@ -3,53 +3,65 @@
 #include <stdbool.h>
 #include <string.h>
 
-int add(int a, int b)
+float add(float a, float b)
 {
   return a + b;
 }
 
-int sub(int a, int b)
+float sub(float a, float b)
 {
   return a - b;
 }
 
-int mul(int a, int b)
+float mul(float a, float b)
 {
   return a * b;
 }
 
-int divv(int a, int b)
+float divv(float a, float b)
 {
-  return a % b;
+  return a / b;
 }
 
 
 int main(void)
 {
-  int number = 1;
-  int *numberList = NULL;
-  int i;
+  float op1;
+  float op2;
+  char operateur;
+  float result;
+  char rep[3];
   bool isEnd = false;
-  char rep[10];
-
-  numberList = calloc(number, sizeof(int) * number);
-  if ( numberList == NULL ) exit( 1 );
   
-  for ( i = 0 ; i < number ; i++ )
-  {
-    printf("Nombre %d\n", i);
-    numberList[i];
-  }
+  printf("Veuillez taper votre opération : ");
+  scanf("%f %c %f", &op1, &operateur, &op2);
+  
   do {
-    printf("Veuillez rentree votre premier nombre : ")
-    scanf(i)
-    printf("Voulez vous rentrez un autre nombre ? oui ? non ? ");
-    scanf("%s", rep);
-    isEnd = (strcmp(rep, "oui") == 0) ? true : false;
-    if (isEnd == false) {
-      
-    }
-  } while(isEnd);
+    if( operateur == '+' ) result = add(op1, op2);
+    if( operateur == '-' ) result = sub(op1, op2);
+    if( operateur == '*' ) result = mul(op1, op2);
+    if( operateur == '/' )
+    {
+      if( op2 == 0 )
+      {
+        printf("Erreur : division par 0 !");
+        break;
+      }
+      result = divv(op1, op2);
+    } 
+    printf("%.2f\n", result);
 
+    printf("Voulez vous rentrez un autre calcul avec votre résultat précédent : oui ? non ? -> ");
+    scanf("%s", rep);
+
+    isEnd = (strcmp(rep, "oui") == 0) ? true : false;
+    if (isEnd == true) 
+    {
+      op1 = result;
+      printf("Veuillez taper votre opération : %.2f ", op1);
+      scanf(" %c %f", &operateur, &op2);
+    }
+
+  } while(isEnd);
   return 0;
 }
